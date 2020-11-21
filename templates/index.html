@@ -1,0 +1,121 @@
+<!--Para iniciar nuestro HTML vamos a separar los elementos usando las etiquetas de HTML-->
+<!--Vamos heredar nuestro layout, para que sean un mismo tema para todas nuestra vistas-->
+<!--Aqui lo mandamos a llamar-->
+{% extends 'layout.html' %}
+
+
+
+<!--Aqui especificamos que estara dentro del bloque que usara nuestro layout (no se si me explique bien)-->
+{% block body %}
+
+<head>
+    
+</head>
+
+<!--Cuerpo-->
+<body>
+    <!--Aqui introduciremos los formularios y otros elementos-->
+    <!--Mensaje de confirmacion que se agrego un usuario-->
+    <!--Invocamos el mensaje de nustros backendsito-->
+    {% with mensajeconf = get_flashed_messages() %}
+    <!--Esta condicional sirve para verificar si hay un mensaje-->
+    {% if mensajeconf %}
+    <!--Con el ciclo for mostramos los mensajes-->
+    {% for mensaje in mensajeconf %}
+        <!--Vamos a agregar un estilo a nuestro mensaje para que se vea bonito-->
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ mensajeconf.0 }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <!--Cerramos el bucle y la condicional-->
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    
+    <!--Vamos a separar los contenidos para que tenga buen estilo-->
+    <!--Formulario-->
+    <div class="card card-body">
+        <h5 class="card-title">Agrega usuario</h5>
+        <!--Formulario inicial (donde enviaremos los datos)-->
+        <form action="/AddUsu" method="POST">
+            <!--Comenzaremos con los cuadros de texto-->
+            <!--Nombre-->
+            <div>
+                <div>
+                    <label for="Nombre">Nombre</label>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" name="Nombre" class="form-control" placeholder="Ejemplo: Angel Sosa Gonzalez" aria-label="Recipient's username" aria-describedby="button-addon2">
+                </div>
+            </div>
+
+            <!--Edad-->
+            <div>
+                <div>
+                    <label for="Edad">Edad</label>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" name="Edad" class="form-control" placeholder="Ejemplo: 21" aria-label="Recipient's username" aria-describedby="button-addon2">
+                </div>
+            </div>
+    
+            <!--Ciudad-->
+            <div>
+                <div>
+                    <label for="Ciudad">Ciudad</label>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" name="Ciudad" class="form-control" placeholder="Ejemplo: Ecatepec" aria-label="Recipient's username" aria-describedby="button-addon2">
+                </div>
+            </div>
+
+            <!--Boton de confirmacion-->
+            <button type="submit" class="btn btn-success" id="Hecho">Hecho</button>
+        </form>
+    </div>
+
+
+    <!--Tabla-->
+    <div class="pt-2">
+        <div class="card card-body">
+            <h5 class="card-title">Usuarios</h5>
+            <!--Crearemos una tabla donde mostraremos los datos que estan almacenados en nuestra BD-->
+            <table>
+                <thead class="thead-dark">
+                    <tr>
+                        <!--Introduciremos las columnas que queremos visualizar-->
+                        <td>Nombre</td>
+                        <td>Edad</td>
+                        <td>Ciudad</td>
+        
+                        <!--Aqui meteremos las operaciones de eliminar y editar (con botones)-->
+                        <td>Funciones</td>
+                    </tr>
+                </thead>
+
+                <!--Esta parte estara los datos almacenados de nuestra base da datos-->
+                <tbody class="table">
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <!--De esta forma agregaremos los datos a las columnas que queremos-->
+                        <td> {{ usuario.1 }} </td>
+                        <td> {{ usuario.2 }} </td>
+                        <td> {{ usuario.3 }} </td>
+                        
+                        <!--En forma de botones llamaremos las rutas de editar y eliminar-->
+                        <td>
+                            <a href="/BuscUsu/{{usuario.0}}" class="btn btn-primary" id="Editar">Editar</a>
+                            <a href="/DelUsu/{{usuario.0}}" class="btn btn-danger btn-delete" id="Eliminar">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>        
+            </table>
+        </div>
+    </div>
+</body>
+
+<!--AQUI TERMINA EL BLOQUE-->
+{% endblock %}

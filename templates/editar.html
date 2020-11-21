@@ -1,0 +1,55 @@
+<!--Este HTML meteremos todo los elementos para editar los usuarios-->
+<!--Vamos heredar nuestro layout, para que sean un mismo tema para todas nuestra vistas-->
+<!--Aqui lo mandamos a llamar-->
+{% extends 'layout.html' %}
+
+
+<!--Aqui especificamos que estara dentro del bloque que usara nuestro layout (no se si me explique bien)-->
+{% block body %}
+
+<body>
+    <div>
+        <div class="card card-body">
+            <h5 class="card-title">Editar usuario</h5>
+            <!--Formulario inicial (donde editaremos los datos)-->
+            <form action="/EditUsu/{{ usuario.0 }}" method="POST">
+                <!--Comenzaremos con los cuadros de texto-->
+                <!--Nombre-->
+                <div>
+                    <div>
+                        <label for="Nombre">Nombre</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="Nombre" class="form-control" placeholder="Ejemplo: Angel Sosa Gonzalez" aria-label="Recipient's username" aria-describedby="button-addon2" value="{{ usuario.1 }}">
+                    </div>
+                </div>
+            
+                <!--Edad-->
+                <div>
+                    <div>
+                        <label for="Edad">Edad</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="Edad" class="form-control" placeholder="Ejemplo: 21" aria-label="Recipient's username" aria-describedby="button-addon2" value="{{ usuario.2 }}">
+                    </div>
+                </div>
+                
+                <!--Ciudad-->
+                <div>
+                    <div>
+                        <label for="Ciudad">Ciudad</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="Ciudad" class="form-control" placeholder="Ejemplo: Ecatepec" aria-label="Recipient's username" aria-describedby="button-addon2" value="{{ usuario.3 }}">
+                    </div>
+                </div>
+        
+                <!--Boton de confirmacion-->
+                <button type="submit" class="btn btn-success">Hecho</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+<!--AQUI TERMINA EL BLOQUE-->
+{% endblock %}
